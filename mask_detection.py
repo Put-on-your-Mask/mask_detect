@@ -18,6 +18,8 @@ def mask_detect(img):
 
     result_img = img.copy()
 
+    mask_cnt, no_mask_cnt = 0, 0
+
     # Detect Faces
 
     faces = []
