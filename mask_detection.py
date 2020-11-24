@@ -9,7 +9,10 @@ def mask_detect(img):
     facenet = cv2.dnn.readNet('models/deploy.prototxt', 'models/res10_300x300_ssd_iter_140000.caffemodel')
     model = load_model('models/mask_detector.model')
 
-    img = cv2.imread(img)
+    # img = cv2.imread(img)
+    encoded_img = np.fromstring(img, dtype=np.unit8)
+    img = cv2.imdecode(encoded_img, cv2.IMREAD_COLOR)
+
     h, w = img.shape[:2]
 
     blob = cv2.dnn.blobFromImage(img, scalefactor=1., size=(300, 300), mean=(104., 177., 123.))
