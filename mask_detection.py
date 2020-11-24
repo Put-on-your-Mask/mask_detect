@@ -10,7 +10,7 @@ def mask_detect(img):
     model = load_model('models/mask_detector.model')
 
     # img = cv2.imread(img)
-    encoded_img = np.fromstring(img, dtype=np.unit8)
+    encoded_img = np.fromstring(img, dtype=np.uint8)
     img = cv2.imdecode(encoded_img, cv2.IMREAD_COLOR)
 
     h, w = img.shape[:2]
@@ -60,4 +60,6 @@ def mask_detect(img):
         cv2.rectangle(result_img, pt1=(x1, y1), pt2=(x2, y2), thickness=2, color=color, lineType=cv2.LINE_AA)
         cv2.putText(result_img, text=label, org=(x1, y1 - 10), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.8, color=color, thickness=2, lineType=cv2.LINE_AA)
 
-    return result_img, mask_cnt, no_mask_cnt
+    binary_cv = cv2.imencode('.PNG', result_img)[1].tobytes()
+    
+    return binary_cv, mask_cnt, no_mask_cnt
